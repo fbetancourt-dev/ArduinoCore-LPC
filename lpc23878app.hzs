@@ -57,5 +57,5 @@
  <Files>
   <SessionOpenFile windowGroup="DockEditLeft" x="0" y="198" useTextEdit="1" useBinaryEdit="0" left="0" path="main_ctl.cpp" selected="1" top="176" codecName="Default"/>
  </Files>
- <ARMCrossStudioWindow activeProject="lpc2378app" fileDialogDefaultFilter="*.c" autoConnectTarget="CrossConnect for ARM" buildConfiguration="ARM Flash Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="" debugSearchPath="" autoConnectCapabilities="388479"/>
+ <ARMCrossStudioWindow activeProject="lpc2378app" fileDialogDefaultFilter="*.c" autoConnectTarget="CrossConnect for ARM" buildConfiguration="ARM Flash Release" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="" debugSearchPath="" autoConnectCapabilities="388479"/>
 </session>

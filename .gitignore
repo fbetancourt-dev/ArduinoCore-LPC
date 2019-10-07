@@ -1,3 +1,4 @@
 .DS_Store
 lpc2378app ARM Flash Debug
 lpc2378app ARM Flash Release
+*.hzs
