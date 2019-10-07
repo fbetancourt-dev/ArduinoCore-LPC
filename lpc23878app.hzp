@@ -1,0 +1,208 @@
+<!DOCTYPE CrossStudio_Project_File>
+<solution Name="lpc2378app" target="8" version="2">
+  <project Name="lpc2378app">
+    <configuration
+      Name="Common"
+      Target="LPC2378"
+      arm_architecture="v4T"
+      arm_core_type="ARM7TDMI-S"
+      arm_simulator_memory_simulation_filename="$(PackagesDir)/targets/Philips_LPC210X/LPC2000SimulatorMemory.dll"
+      arm_simulator_memory_simulation_parameter="LPC23;0x80000;0x8000;0x10000;0x10000"
+      arm_target_debug_interface_type="ARM7TDI"
+      arm_target_loader_parameter="12000000"
+      c_preprocessor_definitions="CTL_TASKING;STARTUP_FROM_RESET"
+      c_user_include_directories="$(PackagesDir)/libraries/libctl/include"
+      gcc_entry_point="reset_handler"
+      link_include_startup_code="No"
+      link_use_multi_threaded_libraries="Yes"
+      linker_additional_files="$(PackagesDir)/libraries/libctl/lib/libctl$(LibExt).a;$(PackagesDir)/lib/liblpc2000$(LibExt)$(LIB)"
+      linker_memory_map_file="$(PackagesDir)/targets/Philips_LPC210X/Philips_LPC2378_MemoryMap.xml"
+      linker_output_format="hex"
+      oscillator_frequency="12MHz"
+      project_directory=""
+      project_type="Executable"
+      property_groups_file_path="$(PackagesDir)/targets/Philips_LPC210X/propertyGroups23xx.xml" />
+    <configuration
+      Name="RAM"
+      Placement="RAM"
+      linker_section_placement_file="$(StudioDir)/targets/sram_placement.xml"
+      target_reset_script="SRAMReset()" />
+    <configuration
+      Name="Flash"
+      Placement="Flash"
+      arm_target_flash_loader_file_path="$(PackagesDir)/targets/Philips_LPC210X/Release/Loader_lpc2300.elf"
+      arm_target_flash_loader_type="LIBMEM RPC Loader"
+      c_preprocessor_definitions="STARTUP_FROM_RESET"
+      linker_section_placement_file="$(StudioDir)/targets/flash_placement.xml"
+      target_reset_script="FLASHReset()" />
+    <folder Name="Source Files">
+      <configuration Name="Common" filter="c;cpp;cxx;cc;h;s;asm;inc" />
+      <file file_name="crt0.s">
+        <configuration
+          Name="Common"
+          c_preprocessor_definitions="STARTUP_FROM_RESET" />
+      </file>
+      <file file_name="main_ctl.cpp">
+        <configuration
+          Name="Common"
+          c_preprocessor_definitions="STARTUP_FROM_RESET" />
+      </file>
+      <folder Name="hardware">
+        <file file_name="Arduino.c" />
+        <file file_name="Arduino.h" />
+        <file file_name="binary.h" />
+        <file file_name="HardwareSerial_private.h" />
+        <file file_name="HardwareSerial.cpp" />
+        <file file_name="HardwareSerial.h" />
+        <file file_name="HardwareSerial0.cpp" />
+        <file file_name="HardwareSerial1.cpp" />
+        <file file_name="HardwareSerial2.cpp" />
+        <file file_name="HardwareSerial3.cpp" />
+        <file file_name="pins_arduino.h" />
+        <file file_name="wiring_digital.c" />
+        <file file_name="wiring_digital.h" />
+        <file file_name="wiring.c" />
+        <file file_name="wiring.h" />
+        <file file_name="WMath.cpp" />
+        <file file_name="WMath.h" />
+        <file file_name="Print.h" />
+        <file file_name="Print.cpp" />
+        <file file_name="WString.cpp" />
+        <file file_name="WString.h" />
+        <file file_name="Printable.h" />
+        <file file_name="pgmspace.h" />
+        <file file_name="wiring_string.h" />
+        <file file_name="wiring_string.c" />
+        <file file_name="Stream.cpp" />
+        <file file_name="Stream.h" />
+        <file file_name="WCharacter.h" />
+        <file file_name="WCharacter.cpp" />
+        <file file_name="IPAddress.cpp" />
+        <file file_name="IPAddress.h" />
+        <file file_name="Client.h" />
+        <file file_name="Server.h" />
+        <file file_name="wiring_analog.c" />
+        <file file_name="wiring_analog.h" />
+        <file file_name="SPI.cpp" />
+        <file file_name="SPI.h" />
+      </folder>
+      <folder Name="libraries">
+        <folder Name="EONLog">
+          <file file_name="EONLog.cpp" />
+          <file file_name="EONLog.h" />
+        </folder>
+        <folder Name="ArduinoLog">
+          <file file_name="ArduinoLog.cpp" />
+          <file file_name="ArduinoLog.h" />
+        </folder>
+        <folder Name="GSM" />
+        <folder Name="SPIMemory">
+          <file file_name="SPIFlash.h" />
+          <file file_name="SPIFram.h" />
+          <file file_name="SPIMemory.h" />
+          <file file_name="defines.h" />
+          <file file_name="diagnostics.cpp" />
+          <file file_name="diagnostics.h" />
+          <file file_name="SPIFlash.cpp" />
+          <file file_name="SPIFlashIO.cpp" />
+          <file file_name="SPIFlashSFDP.cpp" />
+          <file file_name="SPIFram.cpp" />
+          <file file_name="SPIFramIO.cpp" />
+          <file file_name="SPIMemory.cpp" />
+        </folder>
+      </folder>
+      <folder Name="variants">
+        <file file_name="bsp.h" />
+        <file file_name="config.h" />
+      </folder>
+      <file file_name="globals.h" />
+    </folder>
+    <folder Name="System Files">
+      <file file_name="$(PackagesDir)/targets/Philips_LPC210X/Philips_LPC230X_Startup.s">
+        <configuration
+          Name="ARM Flash Release"
+          c_preprocessor_definitions="" />
+        <configuration
+          Name="Release"
+          c_preprocessor_definitions="STARTUP_FROM_RESET;SRAM_EXCEPTIONS" />
+        <configuration
+          Name="Debug"
+          c_preprocessor_definitions="SRAM_EXCEPTIONS" />
+        <configuration Name="Common" c_preprocessor_definitions="" />
+      </file>
+      <file file_name="$(PackagesDir)/targets/Philips_LPC210X/LPC230x.c" />
+      <file file_name="$(PackagesDir)/targets/Philips_LPC210X/Philips_LPC210X_Target.js">
+        <configuration Name="Common" file_type="Reset Script" />
+      </file>
+      <file file_name="$(PackagesDir)/libraries/libctl/source/threads.js" />
+      <file file_name="$(PackagesDir)/targets/Philips_LPC210X/VIC_PL192.c" />
+      <file file_name="$(PackagesDir)/targets/Philips_LPC210X/VIC_PL192_irq_handler.s">
+        <configuration
+          Name="Common"
+          c_preprocessor_definitions="CTL_TASKING" />
+      </file>
+      <file file_name="Philips_LPC2378_MemoryMap.xml" />
+    </folder>
+    <configuration Name="ARM" macros="" />
+    <configuration
+      Name="ARM Flash Debug"
+      arm_linker_fiq_stack_size="256"
+      arm_linker_heap_size="1024"
+      arm_linker_irq_stack_size="256"
+      arm_linker_stack_size="1024"
+      c_user_include_directories="../lpc2378common;."
+      macros="DEBUG=1" />
+    <configuration
+      Name="ARM Flash Release"
+      c_additional_options="-Wall"
+      c_preprocessor_definitions="STARTUP_FROM_RESET"
+      c_user_include_directories="../lpc2378common;."
+      linker_additional_options=""
+      linker_output_format="bin"
+      linker_post_build_command="" />
+    <configuration
+      Name="Release"
+      c_preprocessor_definitions=""
+      linker_output_format="bin" />
+  </project>
+  <configuration
+    Name="ARM Flash Debug"
+    arm_linker_stack_size="1200"
+    inherited_configurations="ARM;Flash;Debug" />
+  <configuration
+    Name="ARM"
+    Platform="ARM"
+    arm_instruction_set="ARM"
+    arm_library_instruction_set="ARM"
+    c_preprocessor_definitions="__ARM"
+    hidden="Yes"
+    linker_printf_fp_enabled="Yes" />
+  <configuration
+    Name="Flash"
+    c_preprocessor_definitions="__FLASH_BUILD"
+    hidden="Yes" />
+  <configuration
+    Name="Debug"
+    build_debug_information="Yes"
+    c_preprocessor_definitions="DEBUG"
+    gcc_optimization_level="None"
+    hidden="Yes"
+    link_include_startup_code="No" />
+  <configuration
+    Name="ARM Flash Release"
+    c_preprocessor_definitions="STARTUP_FROM_RESET"
+    inherited_configurations="ARM;Flash;Release"
+    linker_output_format="bin" />
+  <configuration
+    Name="Release"
+    build_debug_information="No"
+    c_additional_options="-g1"
+    c_preprocessor_definitions="NDEBUG"
+    gcc_optimization_level="Level 1"
+    hidden="Yes"
+    link_include_startup_code="No" />
+  <configuration
+    Name="Common"
+    gcc_c_language_standard="c11"
+    gcc_cplusplus_language_standard="gnu++11" />
+</solution>
