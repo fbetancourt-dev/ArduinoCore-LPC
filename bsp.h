@@ -13,6 +13,13 @@
 #define GPIO_gsmCTS                 P0_17 // GSM CTS, PIN_87, CTS1
 #define GPIO_gsmRTS                 P0_22 // GSM RTS, PIN_80, RTS1
 
+#define GPIO_gsmreset               P0_31 // GSM RESET, PIN_36, MODEM_RESET
+#define GPIO_onoff                  P0_13 // GSM ON/OFF, PIN_32, ON_OFF
+#define GPIO_pwrmon                 P0_18 // GSM PWRMON, PIN_86, PWRMON
+#define GPIO_gsmservice             P0_19 // GSM SERVICE, PIN_85, SERVICE
+#define GPIO_gsmCTS                 P0_17 // GSM CTS, PIN_87, CTS1
+#define GPIO_gsmRTS                 P0_22 // GSM RTS, PIN_80, RTS1
+
 
 #define GPIO_xbeereset              P0_27 // XBEE RESET, PIN_35, ~RESET_XBEE
 #define GPIO_xbeeCTS                P0_26 // XBEE CTS, PIN_8, XBEE_CTS

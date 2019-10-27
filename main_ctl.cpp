@@ -9,22 +9,20 @@ static CTL_TASK_t mainTask, task1Task, task2Task;
 static unsigned task1Stack[64];
 static unsigned task2Stack[128];
 
-String inputString = "";     // a String to hold incoming data
+//String inputString = "";     // a String to hold incoming data
 bool stringComplete = false; // whether the string is complete
 
 void task1(void *p) {
-  // task code; on return, the task will be terminated.
 
-  //pinMode(GPIO_busy, OUTPUT);
+  Serial3.begin(115200);
+
+  pinMode(P1_22, INPUT_PULLDOWN);
+  pinMode(P1_25, INPUT_PULLDOWN);
   while (1) {
-    delay(100);
-    //digitalWrite(GPIO_busy, HIGH);
-    //delay(100);
-    //digitalWrite(GPIO_busy, LOW);
-    //digitalWrite(P0_7, HIGH);
-    //delay(100);
-    //digitalWrite(P0_7, LOW);
-    //delay(100);
+    delay(1000);
+    
+     Serial3.printf("HWID0:%s",digitalRead(P1_22)==HIGH?"HIGH, ":"LOW, ");
+     Serial3.printf("HWID1:%s",digitalRead(P1_25)==HIGH?"HIGH\r\n":"LOW\r\n");
   }
 }
 
@@ -74,14 +72,50 @@ void task2(void *p) {
 
   //pinMode(GPIO_VmDoorOpen, OUTPUT);
   pinMode(GPIO_busy, OUTPUT);
+  
+  int reset = P0_31;
+  int pwr_3_7 = P0_13;
+  int pwr_1_8 = P0_19;
+  int pwr_mon = P0_18;
+
+  pinMode(reset, OUTPUT);
+  pinMode(pwr_1_8, OUTPUT);
+  pinMode(pwr_3_7, OUTPUT);
+  pinMode(pwr_mon, INPUT);
+
+  // Turn on the HL
+  digitalWrite(reset, LOW);
+  digitalWrite(pwr_1_8, LOW);
+  digitalWrite(pwr_3_7, LOW);
+  delay(1000);
+
+  digitalWrite(pwr_3_7, HIGH);
+  delay(2000);
+  digitalWrite(pwr_1_8, HIGH);
+  delay(100);
+  digitalWrite(reset, HIGH);
+  delay(100);
+  digitalWrite(reset, LOW);
+  delay(7000);
+
   while (1) {
+    if(digitalRead(pwr_mon)==HIGH) {
+      debug_printf("ON");
+    }
+    else
+    {
+      debug_printf("OFF");
+    }
     Serial.println("UART0");
-    Serial1.println("UART1");
-    Serial2.println("UART2");
-    Serial3.println("UART3");
-    delay(250);
+    debug_printf("Sending AT\n");
+    Serial.println("AT");
+    delay(500);
+    while(Serial.available()!=0)
+      debug_printf("%c",Serial.read());
+
+    delay(500);
     digitalWrite(GPIO_busy, HIGH);
-    delay(250);
+    delay(500);
     digitalWrite(GPIO_busy, LOW);
   }
 
@@ -180,9 +214,12 @@ void task2(void *p) {
 int main(void) {
 
   // reserve 200 bytes for the inputString:
-  inputString.reserve(200);
+  //inputString.reserve(200);
 
   //pinMode(P0_7, OUTPUT);
+
+  pinMode(P0_27, OUTPUT);
+  digitalWrite(P0_27, LOW);
 
   ctl_events_init(&event_set_isr, 0); // use these events to trigger tasks from ISRs
 
@@ -195,7 +232,7 @@ int main(void) {
 
   // Prepare another task to run.
   ctl_task_run(&task1Task, 1, task1, 0, "task1", sizeof(task1Stack) / sizeof(unsigned), task1Stack, 0);
-  ctl_task_run(&task2Task, 2, task2, 0, "task2", sizeof(task2Stack) / sizeof(unsigned), task2Stack, 0);
+  //ctl_task_run(&task2Task, 2, task2, 0, "task2", sizeof(task2Stack) / sizeof(unsigned), task2Stack, 0);
 
   // Now that all the tasks have been created, go to the lowest priority task.
   ctl_task_set_priority(&mainTask, 0);
@@ -209,17 +246,19 @@ int main(void) {
 }
 
 void serialEvent() {
+/*
   while (Serial.available()) {
     // get the new byte:
     char inChar = (char)Serial.read();
     // add it to the inputString:
-    inputString += inChar;
+    //inputString += inChar;
     // if the incoming character is a newline, set a flag so the main loop can
     // do something about it:
     if (inChar == '\n') {
       stringComplete = true;
     }
   }
+  */
 }
 
 void ctl_handle_error(CTL_ERROR_CODE_t e) {

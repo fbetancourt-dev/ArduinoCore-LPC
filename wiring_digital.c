@@ -39,24 +39,24 @@ int digitalRead(uint32_t pin) {
 }
 
 void lpc_gpio_cfg(uint32_t pin, uint8_t direction, uint8_t cfg) {
-  uint32_t baseHardwareAddress;
-  uint32_t pinSelectOffset;
-  uint32_t pinModeOffset;
-  uint32_t port;
-  uint32_t pullupmask;
-  uint32_t *RisingIntReg;
-  uint32_t *FallingIntReg;
+  uint32_t baseHardwareAddress = 0;
+  uint32_t pinSelectOffset = 0;
+  uint32_t pinModeOffset = 0;
+  uint32_t port = 0;
+  uint32_t pullupmask = 0;
+  uint32_t *RisingIntReg = 0;
+  uint32_t *FallingIntReg = 0;
 
-  uint32_t *IOxPIN;
-  uint32_t *IOxDIR;
-  uint32_t *IOxSET;
-  uint32_t *IOxCLR;
-  uint32_t *IOxMASK;
-  uint32_t *PINSELx;
-  uint32_t *PINMODEx;
-  uint32_t pinMask;
-  uint32_t shiftCount;
-  uint32_t portPin;
+  uint32_t *IOxPIN = 0;
+  uint32_t *IOxDIR = 0;
+  //uint32_t *IOxSET;
+  //uint32_t *IOxCLR;
+  uint32_t *IOxMASK = 0;
+  uint32_t *PINSELx = 0;
+  uint32_t *PINMODEx = 0;
+  uint32_t pinMask = 0;
+  uint32_t shiftCount = 0;
+  uint32_t portPin = 0;
 
   portPin = pin;
 
@@ -73,8 +73,8 @@ void lpc_gpio_cfg(uint32_t pin, uint8_t direction, uint8_t cfg) {
     IOxPIN = (uint32_t *)(baseHardwareAddress + FIO0PIN_OFFSET);
     IOxMASK = (uint32_t *)(baseHardwareAddress + FIO0MASK_OFFSET);
     IOxDIR = (uint32_t *)(baseHardwareAddress + FIO0DIR_OFFSET);
-    IOxSET = (uint32_t *)(baseHardwareAddress + FIO0SET_OFFSET);
-    IOxCLR = (uint32_t *)(baseHardwareAddress + FIO0CLR_OFFSET);
+    //IOxSET = (uint32_t *)(baseHardwareAddress + FIO0SET_OFFSET);
+    //IOxCLR = (uint32_t *)(baseHardwareAddress + FIO0CLR_OFFSET);
     PINSELx = (uint32_t *)(PCB_BASE + pinSelectOffset);
     PINMODEx = (uint32_t *)(PCB_BASE + pinModeOffset);
     break;
@@ -84,8 +84,8 @@ void lpc_gpio_cfg(uint32_t pin, uint8_t direction, uint8_t cfg) {
     IOxPIN = (uint32_t *)(baseHardwareAddress + FIO1PIN_OFFSET);
     IOxMASK = (uint32_t *)(baseHardwareAddress + FIO1MASK_OFFSET);
     IOxDIR = (uint32_t *)(baseHardwareAddress + FIO1DIR_OFFSET);
-    IOxSET = (uint32_t *)(baseHardwareAddress + FIO1SET_OFFSET);
-    IOxCLR = (uint32_t *)(baseHardwareAddress + FIO1CLR_OFFSET);
+    //IOxSET = (uint32_t *)(baseHardwareAddress + FIO1SET_OFFSET);
+    //IOxCLR = (uint32_t *)(baseHardwareAddress + FIO1CLR_OFFSET);
     PINSELx = (uint32_t *)(PCB_BASE + pinSelectOffset);
     PINMODEx = (uint32_t *)(PCB_BASE + pinModeOffset);
     break;
@@ -95,8 +95,8 @@ void lpc_gpio_cfg(uint32_t pin, uint8_t direction, uint8_t cfg) {
     IOxPIN = (uint32_t *)(baseHardwareAddress + FIO2PIN_OFFSET);
     IOxMASK = (uint32_t *)(baseHardwareAddress + FIO2MASK_OFFSET);
     IOxDIR = (uint32_t *)(baseHardwareAddress + FIO2DIR_OFFSET);
-    IOxSET = (uint32_t *)(baseHardwareAddress + FIO2SET_OFFSET);
-    IOxCLR = (uint32_t *)(baseHardwareAddress + FIO2CLR_OFFSET);
+    //IOxSET = (uint32_t *)(baseHardwareAddress + FIO2SET_OFFSET);
+    //IOxCLR = (uint32_t *)(baseHardwareAddress + FIO2CLR_OFFSET);
     PINSELx = (uint32_t *)(PCB_BASE + pinSelectOffset);
     PINMODEx = (uint32_t *)(PCB_BASE + pinModeOffset);
     break;
@@ -106,8 +106,8 @@ void lpc_gpio_cfg(uint32_t pin, uint8_t direction, uint8_t cfg) {
     IOxPIN = (uint32_t *)(baseHardwareAddress + FIO3PIN_OFFSET);
     IOxMASK = (uint32_t *)(baseHardwareAddress + FIO3MASK_OFFSET);
     IOxDIR = (uint32_t *)(baseHardwareAddress + FIO3DIR_OFFSET);
-    IOxSET = (uint32_t *)(baseHardwareAddress + FIO3SET_OFFSET);
-    IOxCLR = (uint32_t *)(baseHardwareAddress + FIO3CLR_OFFSET);
+    //IOxSET = (uint32_t *)(baseHardwareAddress + FIO3SET_OFFSET);
+    //IOxCLR = (uint32_t *)(baseHardwareAddress + FIO3CLR_OFFSET);
     PINSELx = (uint32_t *)(PCB_BASE + pinSelectOffset);
     PINMODEx = (uint32_t *)(PCB_BASE + pinModeOffset);
     break;
@@ -117,8 +117,8 @@ void lpc_gpio_cfg(uint32_t pin, uint8_t direction, uint8_t cfg) {
     IOxPIN = (uint32_t *)(baseHardwareAddress + FIO4PIN_OFFSET);
     IOxMASK = (uint32_t *)(baseHardwareAddress + FIO4MASK_OFFSET);
     IOxDIR = (uint32_t *)(baseHardwareAddress + FIO4DIR_OFFSET);
-    IOxSET = (uint32_t *)(baseHardwareAddress + FIO4SET_OFFSET);
-    IOxCLR = (uint32_t *)(baseHardwareAddress + FIO4CLR_OFFSET);
+    //IOxSET = (uint32_t *)(baseHardwareAddress + FIO4SET_OFFSET);
+    //IOxCLR = (uint32_t *)(baseHardwareAddress + FIO4CLR_OFFSET);
     PINSELx = (uint32_t *)(PCB_BASE + pinSelectOffset);
     PINMODEx = (uint32_t *)(PCB_BASE + pinModeOffset);
     break;
@@ -161,13 +161,13 @@ void lpc_gpio_cfg(uint32_t pin, uint8_t direction, uint8_t cfg) {
 }
 
 void lpc_gpio_set_state(uint32_t pin, int state) {
-  uint32_t baseHardwareAddress;
-  uint32_t port;
+  uint32_t baseHardwareAddress = 0;
+  uint32_t port = 0;
 
-  uint32_t *IOxSET;
-  uint32_t *IOxCLR;
-  uint32_t pinMask;
-  uint32_t shiftCount;
+  uint32_t *IOxSET = 0;
+  uint32_t *IOxCLR = 0;
+  uint32_t pinMask = 0;
+  uint32_t shiftCount = 0;
 
   shiftCount = pin & 0x1F;  // pin number in bits 4:0
   port = (pin >> 16) & 0x7; // port number in bits 18:16
@@ -208,12 +208,12 @@ void lpc_gpio_set_state(uint32_t pin, int state) {
 int lpc_gpio_get_state(uint32_t pin) {
   int retval = 0;
 
-  uint32_t baseHardwareAddress;
-  uint32_t port;
+  uint32_t baseHardwareAddress = 0;
+  uint32_t port = 0;
 
-  uint32_t *IOxPIN;
-  uint32_t pinMask;
-  uint32_t shiftCount;
+  uint32_t *IOxPIN = 0;
+  uint32_t pinMask = 0;
+  uint32_t shiftCount = 0;
 
   shiftCount = pin & 0x1F;  // pin number in bits 4:0
   port = (pin >> 16) & 0x7; // port number in bits 18:16

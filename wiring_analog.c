@@ -19,7 +19,7 @@ void analogReference(uint8_t mode) {
 }
 
 int analogRead(uint8_t pin) {
-  uint8_t low, high;
+  uint8_t low=0, high=0;
   // combine the two bytes
   return (high << 8) | low;
 }
